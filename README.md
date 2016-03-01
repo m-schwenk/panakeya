@@ -1,0 +1,2 @@
+# panakeya
+Shortcuts - solved
