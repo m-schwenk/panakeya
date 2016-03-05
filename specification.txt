@@ -1,0 +1,39 @@
+features:
+- write shurtcut action to always call a function by import
+- put all features into functions
+- keep every feature function isolated in seperate files
+- keep those files in a subfolder "commands" in the program dir
+- change default lib folder to "commands"
+- provide global variables in all caps with "P_" prefix
+- make progrma dir command folder read only 
+- make reading from user dir command folder optional
+	this allows better user control over what the capabilities are
+- make all commands implement a help object used to display its function
+- commands may raise or lower the P_SENDLEVEL
+- commands may yield execution to another command
+- commands may decide wether to resume when the other command finishes
+- commands may be assigned globally or via whitelist/blacklist to specific windows or window groups
+- commands may not change their assignment themselves
+- if the command foregoes resumption execution gets transfered this commands parent
+- the native key function is special in that it:
+	always occupies P_SENDLEVEL 0 effectively barring any command to take over a key completely
+	consequently can never yield P_SENDLEVEL 0
+	additionally occupies per default any other P_SENDLEVEL not registered by a command
+- a P_SENDLEVEL can never be lowered below 0 
+- P_SENDLEVEL can not be changed directly, only access is through a getter/setter API
+
+API:
+- unsigned int getCurrentSendlevel
+- raiseCurrentSendLevel(unsigned int byAmount =1, bool treatAsOffset =false)
+- lowerCurrentSendLevel(unsigned int byAmount =1, bool treatAsOffset =false)
+- requestResumption 
+
+
+P_ vars:
+- P_SENDLEVEL
+	== 0 when keys should perform their native function
+	== 1 when keys should perform their longpress function
+	>  1 allows the longpress function to switch behaviour
+		to a different function. 
+
+commands:
