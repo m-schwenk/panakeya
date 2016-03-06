@@ -1,11 +1,21 @@
 features:
+- disables windows key repeat providing the same functionality as option afterwards
+- produces the regular (native) function of a key on a quick press and release
+- key gets send as soon as key is depressed
+- holding the key for a customizable amount of time (longpress) activates a assigned customizable function
+- first and automatic action a longpress takes is to delete the just typed regular character (automatic backspacing)
+- modifiers work as expected in both modes effectively allowing to maximize utilization of a keyboard in the majority of programs
+- longpress functions are aware of their environment in order to
+	react to other longpresses
+	coordinate their behaviour
+	switch the mode for an entire range of keys on a single longpress (see mouse or keyboard notes below for examples)
 - write shurtcut action to always call a function by import
 - put all features into functions
 - keep every feature function isolated in seperate files
 - keep those files in a subfolder "commands" in the program dir
 - change default lib folder to "commands"
 - provide global variables in all caps with "P_" prefix
-- make progrma dir command folder read only 
+- make program dir command folder read only 
 - make reading from user dir command folder optional
 	this allows better user control over what the capabilities are
 - make all commands implement a help object used to display its function
@@ -21,6 +31,7 @@ features:
 	additionally occupies per default any other P_SENDLEVEL not registered by a command
 - a P_SENDLEVEL can never be lowered below 0 
 - P_SENDLEVEL can not be changed directly, only access is through a getter/setter API
+- for every P_SENDLEVEL > 0 esc key unconditionally sets P_SENDLEVEL = 0 providing for a familiar and memorizable way back
 
 API:
 - unsigned int getCurrentSendlevel
@@ -37,3 +48,14 @@ P_ vars:
 		to a different function. 
 
 commands:
+print language specific characters (german umlaute, EUR Symbol on US keyboards, brackets etc for programming)
+move cursor on longpress esdf 
+	increase speed on double tap
+	decrease speed on single tap
+	after short timeout revert to native
+move mouse on
+	uio
+	jkl
+	m,.
+	allow for 2 keys to influence direction allowing for 16 degrees of freedom
+	change speed on ctrl (slower), shift (faster)
